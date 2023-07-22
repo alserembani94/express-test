@@ -3,7 +3,7 @@ const Student = require('../models/student');
 // 1. Get all
 const getAllStudents = (request, response) => {
   try {
-    const students = Student.getStudents();
+    // const students = Student.getStudents();
 
     response.json(students);
   }
@@ -14,7 +14,7 @@ const getAllStudents = (request, response) => {
 const getStudentById = (request, response) => {
   try {
     const id = Number(request.params.id);
-    const student = Student.getStudentById(id);
+    // const student = Student.getStudentById(id);
 
     if (!student) {
       throw new Error("Student not exist");
@@ -31,7 +31,7 @@ const getStudentById = (request, response) => {
 const createStudent = (request, response) => {
   try {
     const data = request.body;
-    Student.createStudent(data);
+    // Student.createStudent(data);
 
     response.status(201).send("Student created!");
   }
@@ -43,8 +43,8 @@ const updateStudent = (request, response) => {
   try {
     const id = Number(request.params.id);
     const data = request.body;
-    console.log(request.body);
-    Student.updateStudent(id, data);
+    // console.log(request.body);
+    // Student.updateStudent(id, data);
 
     response.send(`Student #${id} updated`);
   }
@@ -55,7 +55,7 @@ const updateStudent = (request, response) => {
 const deleteStudent = (request, response) => {
   try {
     const id = Number(request.params.id);
-    Student.deleteStudent(id);
+    // Student.deleteStudent(id);
 
     response.send(`Student #${id} deleted`);
   }
