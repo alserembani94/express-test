@@ -41,7 +41,7 @@ const createStudent = async (request, response) => {
 }
 
 // 4. Update one
-const updateStudent = (request, response) => {
+const updateStudent = async (request, response) => {
   try {
     const id = request.params.id;
     const data = request.body;
@@ -56,11 +56,13 @@ const updateStudent = (request, response) => {
     }
     response.json(updatedStudent);
   }
-  catch (error) { }
+  catch (error) {
+    response.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 
 // 5. Delete one
-const deleteStudent = (request, response) => {
+const deleteStudent = async (request, response) => {
   try {
     const id = request.params.id;
     // Student.deleteStudent(id);
@@ -73,7 +75,9 @@ const deleteStudent = (request, response) => {
     }
     response.sendStatus(204);
   }
-  catch (error) { }
+  catch (error) {
+    response.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 
 // // Handler functions
