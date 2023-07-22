@@ -1,10 +1,10 @@
 const Student = require('../models/student');
 
 // 1. Get all
-const getAllStudents = (request, response) => {
+const getAllStudents = async (request, response) => {
   try {
     // const students = Student.getStudents();
-
+    const students = await Student.find();
     response.json(students);
   }
   catch (error) { }

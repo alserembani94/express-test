@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const studentModel = {
+const studentStructure = {
   name: {
     type: String,
     required: true,
@@ -16,7 +16,7 @@ const studentModel = {
 };
 
 // Define User schema
-const studentSchema = new mongoose.Schema(studentModel);
+const studentSchema = new mongoose.Schema(studentStructure);
 
 // Define User model
 const Student = mongoose.model('Student', studentSchema);
