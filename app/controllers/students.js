@@ -69,7 +69,7 @@ const deleteStudent = async (request, response) => {
 
     // response.send(`Student #${id} deleted`);
 
-    const deletedStudent = await Student.findByIdAndDelete(req.params.id);
+    const deletedStudent = await Student.findByIdAndDelete(id);
     if (!deletedStudent) {
       return response.status(404).json({ message: 'Student not found' });
     }
