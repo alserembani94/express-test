@@ -1,7 +1,7 @@
 const Student = require('../models/student');
 
 // 1. Get all
-const getAllStudents = async (request, response) => {
+const getAllStudents = async (_request, response) => {
   try {
     // const students = Student.getStudents();
     const students = await Student.find();
@@ -11,42 +11,50 @@ const getAllStudents = async (request, response) => {
 }
 
 // 2. Get one from id
-const getStudentById = (request, response) => {
+const getStudentById = async (request, response) => {
   try {
-    const id = Number(request.params.id);
-    // const student = Student.getStudentById(id);
-
+    const id = request.params.id;
+    const student = await Student.findById(id);
     if (!student) {
-      throw new Error("Student not exist");
+      return response.status(404).json({ message: 'Student not found' });
     }
+    // const student = Student.getStudentById(id);
 
     response.json(student);
   }
   catch (error) {
-    response.status(404).send(error.message);
+    response.status(500).json({ message: 'Internal Server Error' });
   }
 }
 
 // 3. Create one
-const createStudent = (request, response) => {
+const createStudent = async (request, response) => {
   try {
     const data = request.body;
     // Student.createStudent(data);
-
-    response.status(201).send("Student created!");
+    const newStudent = await Student.create(data);
+    response.status(201).json(newStudent);
   }
-  catch (error) { }
+  catch (error) {
+    response.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 
 // 4. Update one
 const updateStudent = (request, response) => {
   try {
-    const id = Number(request.params.id);
+    const id = request.params.id;
     const data = request.body;
     // console.log(request.body);
     // Student.updateStudent(id, data);
 
-    response.send(`Student #${id} updated`);
+    // response.send(`Student #${id} updated`);
+
+    const updatedStudent = await Student.findByIdAndUpdate(id, data, { new: true });
+    if (!updatedStudent) {
+      return response.status(404).json({ message: 'Student not found' });
+    }
+    response.json(updatedStudent);
   }
   catch (error) { }
 }
@@ -54,10 +62,16 @@ const updateStudent = (request, response) => {
 // 5. Delete one
 const deleteStudent = (request, response) => {
   try {
-    const id = Number(request.params.id);
+    const id = request.params.id;
     // Student.deleteStudent(id);
 
-    response.send(`Student #${id} deleted`);
+    // response.send(`Student #${id} deleted`);
+
+    const deletedStudent = await Student.findByIdAndDelete(req.params.id);
+    if (!deletedStudent) {
+      return response.status(404).json({ message: 'Student not found' });
+    }
+    response.sendStatus(204);
   }
   catch (error) { }
 }
