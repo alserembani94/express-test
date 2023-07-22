@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./config/database');
+const env = require('./config/env');
 
 // Initiate connection to DB
 connectDB();
@@ -15,7 +16,7 @@ const studentRoutes = require('./app/routes/students');
 app.use('/students', studentRoutes);
 
 // Start the server
-const port = process.env.PORT || 6969;
+const port = env.PORT;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

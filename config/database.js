@@ -3,7 +3,7 @@ const env = require('./env');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(env.dbUrl, {
+    await mongoose.connect(env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
