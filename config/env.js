@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const env = {
-  dbUrl: process.env.DB_URL,
-};
+const env = process.env;
 
 module.exports = env;
